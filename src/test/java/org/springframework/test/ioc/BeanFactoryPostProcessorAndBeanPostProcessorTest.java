@@ -26,6 +26,7 @@ public class BeanFactoryPostProcessorAndBeanPostProcessorTest {
 		System.out.println(person);
 		//name属性在CustomBeanFactoryPostProcessor中被修改为ivy
 		assertThat(person.getName()).isEqualTo("ivy");
+
 	}
 
 	@Test
@@ -42,5 +43,8 @@ public class BeanFactoryPostProcessorAndBeanPostProcessorTest {
 		System.out.println(car);
 		//brand属性在CustomerBeanPostProcessor中被修改为lamborghini
 		assertThat(car.getBrand()).isEqualTo("lamborghini");
+
+		Person person2 = beanFactory.getBean("person2", Person.class);
+		System.out.println(person2);
 	}
 }
