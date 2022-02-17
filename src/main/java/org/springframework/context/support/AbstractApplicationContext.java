@@ -3,7 +3,6 @@ package org.springframework.context.support;
 import org.springframework.ConfigurableApplicationContext;
 import org.springframework.beans.factory.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.beans.factory.support.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.xml.ConfigurableListableBeanFactory;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -35,7 +34,6 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
     }
 
     /**
-     *
      * @param beanFactory
      */
     private void registerBeanPostProcessors(ConfigurableListableBeanFactory beanFactory) {
@@ -47,6 +45,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 
     /**
      * 在bean实例化之前，执行BeanFactoryPostProcessor
+     *
      * @param beanFactory
      */
     private void invokeBeanFactoryPostProcessor(ConfigurableListableBeanFactory beanFactory) {
@@ -58,6 +57,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 
     /**
      * 获取BeanFactory
+     *
      * @return
      */
     public abstract ConfigurableListableBeanFactory getBeanFactory();
@@ -86,5 +86,29 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 
     public String[] getBeanDefinitionNames() {
         return getBeanFactory().getBeanDefinitionNames();
+    }
+
+    /**
+     * 为了确保销毁方法在虚拟机关闭之前执行，向虚拟机中注册一个钩子方法
+     */
+    public void registerShutdownHook() {
+        Thread shutdownHook = new Thread() {
+            public void run() {
+                doClose();
+            }
+        };
+        Runtime.getRuntime().addShutdownHook(shutdownHook);
+    }
+
+    public void close() {
+        doClose();
+    }
+
+    protected void doClose() {
+        destroyBeans();
+    }
+
+    private void destroyBeans() {
+        getBeanFactory().destroySingletons();
     }
 }
