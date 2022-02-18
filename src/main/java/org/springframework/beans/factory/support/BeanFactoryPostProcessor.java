@@ -1,7 +1,7 @@
 package org.springframework.beans.factory.support;
 
 import org.springframework.beans.factory.BeansException;
-import org.springframework.beans.factory.xml.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.ConfigurableListableBeanFactory;
 
 /**
  * 允许自定义修改BeanDefinition属性值

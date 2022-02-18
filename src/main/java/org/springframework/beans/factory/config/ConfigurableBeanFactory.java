@@ -1,6 +1,6 @@
 package org.springframework.beans.factory.config;
 
-import org.springframework.beans.factory.xml.HierarchicalBeanFactory;
+import org.springframework.beans.factory.HierarchicalBeanFactory;
 
 /**
  * @author cuzz

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.PropertyValue;
 import org.springframework.beans.factory.PropertyValues;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanFactoryPostProcessor;
-import org.springframework.beans.factory.xml.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.ConfigurableListableBeanFactory;
 
 /**
  * @author derekyi

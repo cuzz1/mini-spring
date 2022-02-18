@@ -1,10 +1,10 @@
 package org.springframework.context.support;
 
-import org.springframework.ConfigurableApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.beans.factory.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.support.BeanFactoryPostProcessor;
-import org.springframework.beans.factory.xml.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.ConfigurableListableBeanFactory;
 import org.springframework.core.io.DefaultResourceLoader;
 
 import java.util.Map;
@@ -22,6 +22,8 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
         refreshBeanFactory();
         ConfigurableListableBeanFactory beanFactory = getBeanFactory();
 
+        // 添加ApplicationContextAwareProcessor，让继承ApplicationContextAware的Bean能感知Bean
+        beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
         // 在bean实例化之前，执行BeanFactoryPostProcessor
         invokeBeanFactoryPostProcessor(beanFactory);
 

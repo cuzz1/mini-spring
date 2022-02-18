@@ -1,4 +1,4 @@
-package org.springframework.beans.factory.xml;
+package org.springframework.beans.factory;
 
 import org.springframework.beans.factory.BeanFactory;
 

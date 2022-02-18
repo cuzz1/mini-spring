@@ -1,7 +1,7 @@
 package org.springframework.context;
 
-import org.springframework.beans.factory.xml.HierarchicalBeanFactory;
-import org.springframework.beans.factory.xml.ListableBeanFactory;
+import org.springframework.beans.factory.HierarchicalBeanFactory;
+import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.core.io.ResourceLoader;
 
 /**
