@@ -1,8 +1,8 @@
 package org.springframework.test.ioc;
 
 import org.junit.Test;
-import org.springframework.beans.factory.PropertyValue;
-import org.springframework.beans.factory.PropertyValues;
+import org.springframework.beans.PropertyValue;
+import org.springframework.beans.PropertyValues;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanReference;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;

@@ -1,5 +1,7 @@
 package org.springframework.beans.factory;
 
+import org.springframework.beans.BeansException;
+
 /**
  * @author cuzz
  * @date 2022/2/13 12:35

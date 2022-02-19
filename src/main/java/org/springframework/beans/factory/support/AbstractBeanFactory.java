@@ -1,6 +1,6 @@
 package org.springframework.beans.factory.support;
 
-import org.springframework.beans.factory.BeansException;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DefaultSingletonBeanRegistry;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.config.BeanDefinition;

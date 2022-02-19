@@ -1,6 +1,6 @@
 package org.springframework.beans.factory;
 
-import org.springframework.beans.factory.BeansException;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.SingletonBeanRegistry;
 import org.springframework.beans.factory.support.DisposableBean;
 

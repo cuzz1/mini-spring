@@ -1,7 +1,6 @@
 package org.springframework.context;
 
-import org.springframework.beans.factory.BeansException;
-import org.springframework.context.ApplicationContext;
+import org.springframework.beans.BeansException;
 
 /**
  * @author cuzz

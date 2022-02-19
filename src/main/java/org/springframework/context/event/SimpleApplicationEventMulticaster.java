@@ -1,7 +1,7 @@
 package org.springframework.context.event;
 
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeansException;
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 

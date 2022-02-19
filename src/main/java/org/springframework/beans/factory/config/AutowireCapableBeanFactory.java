@@ -1,7 +1,7 @@
 package org.springframework.beans.factory.config;
 
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeansException;
+import org.springframework.beans.BeansException;
 
 /**
  * @author cuzz

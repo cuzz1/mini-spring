@@ -1,6 +1,6 @@
 package org.springframework.beans.factory.config;
 
-import org.springframework.beans.factory.PropertyValues;
+import org.springframework.beans.PropertyValues;
 
 /**
  * BeanDefinition 实例保存了bean的信息，包括：

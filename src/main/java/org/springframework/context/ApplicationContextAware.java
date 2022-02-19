@@ -1,7 +1,7 @@
 package org.springframework.context;
 
 import org.springframework.beans.factory.Aware;
-import org.springframework.beans.factory.BeansException;
+import org.springframework.beans.BeansException;
 
 /**
  * 实现该接口，能够感知所属的ApplicationContext

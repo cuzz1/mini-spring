@@ -1,6 +1,6 @@
 package org.springframework.beans.factory.config;
 
-import org.springframework.beans.factory.BeansException;
+import org.springframework.beans.BeansException;
 
 /**
  * 用于修改实例化后的bean的修改扩展点
