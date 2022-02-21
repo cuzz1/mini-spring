@@ -12,7 +12,7 @@ public class EventAndEventListenerTest {
     @Test
     public void testEventListener() throws Exception {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:event-and-event-listener.xml");
-        applicationContext.publishEvent(new EmailEvent(applicationContext, new EmailEvent.EmailDTO("cuzz@gmailc.om", "cuzz@163.com", "Hello World")));
+        applicationContext.publishEvent(new EmailEvent(applicationContext, new EmailEvent.EmailDTO("cuzz@gmail.com", "cuzz@163.com", "Hello World")));
 
         applicationContext.registerShutdownHook();//或者applicationContext.close()主动关闭容器;
     }
