@@ -1,10 +1,14 @@
 package org.springframework.test.bean;
 
+import org.springframework.stereotype.Component;
+
 /**
  * @author cuzz
  * @date 2022/2/25 20:37
  */
+@Component
 public class Book {
+
 
     private String title;
 
