@@ -1,5 +1,6 @@
 package org.springframework.test.bean;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class Book {
 
 
+    @Value("${title}")
     private String title;
 
     public Book() {

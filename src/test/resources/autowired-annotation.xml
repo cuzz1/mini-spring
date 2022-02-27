@@ -11,7 +11,7 @@
         <property name="location" value="classpath:book.properties" />
     </bean>
     <!-- xml命名空间  -->
-    <context:component-scan base-package="org.springframework.test.bean"/>
+    <context:component-scan base-package="org.springframework.test"/>
 
 
 </beans>
