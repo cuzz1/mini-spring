@@ -12,6 +12,7 @@ public class AutoProxyTest {
 
 		// 获取代理对象
 		LoginService loginService = applicationContext.getBean("loginService", LoginService.class);
+		System.out.println(loginService.getMsg());
 		loginService.login("cuzz");
 	}
 }

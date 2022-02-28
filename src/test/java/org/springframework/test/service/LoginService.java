@@ -6,5 +6,7 @@ package org.springframework.test.service;
  */
 public interface LoginService {
 
+    String getMsg();
+
     void login(String name);
 }

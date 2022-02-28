@@ -69,6 +69,13 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         try {
             // 实例化bean
             bean = createBeanInstance(beanDefinition);
+
+            //实例化bean之后执行
+            boolean continueWithPropertyPopulation = applyBeanPostProcessorsAfterInstantiation(beanName, bean);
+            if (!continueWithPropertyPopulation) {
+                return bean;
+            }
+
             // 在设置 Bean 属性之前，允许 BeanPostProcessor 修改属性值
             applyBeanPostProcessorsBeforeApplyingPropertyValues(beanName, bean, beanDefinition);
             // 为 bean 填充属性
@@ -89,6 +96,25 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         return bean;
     }
 
+    /**
+     * bean实例化后执行，如果返回false，不执行后续设置属性的逻辑
+     *
+     * @param beanName
+     * @param bean
+     * @return
+     */
+    private boolean applyBeanPostProcessorsAfterInstantiation(String beanName, Object bean) {
+        boolean continueWithPropertyPopulation = true;
+        for (BeanPostProcessor beanPostProcessor : getBeanPostProcessors()) {
+            if (beanPostProcessor instanceof InstantiationAwareBeanPostProcessor) {
+                if (!((InstantiationAwareBeanPostProcessor) beanPostProcessor).postProcessAfterInstantiation(bean, beanName)) {
+                    continueWithPropertyPopulation = false;
+                    break;
+                }
+            }
+        }
+        return continueWithPropertyPopulation;
+    }
     protected void applyBeanPostProcessorsBeforeApplyingPropertyValues(String beanName, Object bean, BeanDefinition beanDefinition){
         for (BeanPostProcessor beanPostProcessor : getBeanPostProcessors()) {
             if (beanPostProcessor instanceof InstantiationAwareBeanPostProcessor){

@@ -1,6 +1,5 @@
 package org.springframework.test.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,12 +9,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginServiceImpl implements LoginService{
 
-    @Autowired
-    private UserService userService;
+    private String msg;
 
     @Override
     public void login(String name) {
-        userService.checkUser(name);
         System.out.println("### " + name + " login...");
+    }
+
+    @Override
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }
