@@ -14,7 +14,7 @@ public class AdvisedSupport {
     /**
      * 是否使用 cglib proxy
      */
-    private boolean proxyTargetClass = false;
+    private boolean proxyTargetClass = true;
 
     /**
      * 被代理的目标对象
