@@ -34,6 +34,7 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
     @Override
     public Object getBean(String name) throws BeansException {
+        // 看看缓存中是否有
         Object sharedInstance = getSingleton(name);
         if (sharedInstance != null) {
             // 如果是FactoryBean，从FactoryBean#getObject中创建Bean
@@ -42,6 +43,7 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
         BeanDefinition beanDefinition = getBeanDefinition(name);
         Object bean = createBean(name, beanDefinition);
+        // 如果是FactoryBean，从FactoryBean#getObject中创建Bean
         return getObjectForBeanInstance(bean, name);
     }
 
@@ -55,7 +57,7 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
     protected Object getObjectForBeanInstance(Object beanInstance, String beanName) {
         Object object = beanInstance;
         if (beanInstance instanceof FactoryBean) {
-            FactoryBean factoryBean =  (FactoryBean) beanInstance;
+            FactoryBean factoryBean = (FactoryBean) beanInstance;
             try {
                 // singleton从缓存中获取
                 if (factoryBean.isSingleton()) {
@@ -63,7 +65,7 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
                     object = factoryBeanObjectCache.get(beanName);
                     if (object == null) {
                         object = factoryBean.getObject();
-                        factoryBeanObjectCache .put(beanName, object);
+                        factoryBeanObjectCache.put(beanName, object);
                     }
                 } else {
                     // prototype每次新创建
@@ -113,6 +115,7 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
         }
         return result;
     }
+
     public List<BeanPostProcessor> getBeanPostProcessors() {
         return this.beanPostProcessors;
     }

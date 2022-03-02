@@ -27,6 +27,7 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
      */
     public ClassPathXmlApplicationContext(String[] configLocations) throws BeansException {
         this.configLocations = configLocations;
+        // 刷新容器
         refresh();
     }
 

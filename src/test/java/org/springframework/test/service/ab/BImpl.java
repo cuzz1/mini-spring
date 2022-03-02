@@ -1,0 +1,20 @@
+package org.springframework.test.service.ab;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+/**
+ * @author cuzz
+ * @date 2022/3/2 21:45
+ */
+@Component
+public class BImpl implements B {
+
+    @Autowired
+    private A a;
+
+    @Override
+    public void funcB() {
+        System.out.println("funcB");
+    }
+}

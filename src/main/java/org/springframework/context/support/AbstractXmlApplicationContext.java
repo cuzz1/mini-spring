@@ -10,6 +10,7 @@ import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 public abstract class AbstractXmlApplicationContext extends AbstractRefreshableApplicationContext {
 
     protected void loadBeanDefinitions(DefaultListableBeanFactory beanFactory) {
+        // 初始化 beanDefinitionReader
         XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory, this);
         String[] configLocations = getConfigLocations();
         if (configLocations != null) {

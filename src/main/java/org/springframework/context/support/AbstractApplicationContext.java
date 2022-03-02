@@ -32,10 +32,16 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
     private ApplicationEventMulticaster applicationEventMulticaster;
 
 
+    /**
+     *
+     * @throws BeansException
+     */
     @Override
     public void refresh() throws BeansException {
         // 创建BeanFactory,并加载BeanDefinition
         refreshBeanFactory();
+
+        // 获取beanFactory
         ConfigurableListableBeanFactory beanFactory = getBeanFactory();
 
         // 添加ApplicationContextAwareProcessor，让继承ApplicationContextAware的Bean能感知Bean

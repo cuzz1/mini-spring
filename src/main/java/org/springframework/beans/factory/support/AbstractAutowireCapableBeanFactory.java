@@ -26,7 +26,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
     @Override
     protected Object createBean(String beanName, BeanDefinition beanDefinition) throws BeansException {
-        //如果bean需要代理，则直接返回代理对象
+        // bean
         Object bean = resolveBeforeInstantiation(beanName, beanDefinition);
         if (bean != null) {
             return bean;
@@ -84,22 +84,22 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             if (!continueWithPropertyPopulation) {
                 return bean;
             }
-            //在设置bean属性之前，允许BeanPostProcessor修改属性值
+            // 在设置bean属性之前，允许BeanPostProcessor修改属性值
             applyBeanPostProcessorsBeforeApplyingPropertyValues(beanName, bean, beanDefinition);
-            //为bean填充属性
+            // 为bean填充属性
             applyPropertyValues(beanName, bean, beanDefinition);
-            //执行bean的初始化方法和BeanPostProcessor的前置和后置处理方法
+            // 执行bean的初始化方法和BeanPostProcessor的前置和后置处理方法
             bean = initializeBean(beanName, bean, beanDefinition);
         } catch (Exception e) {
             throw new BeansException("Instantiation of bean failed", e);
         }
 
-        //注册有销毁方法的bean
+        // 注册有销毁方法的bean
         registerDisposableBeanIfNecessary(beanName, bean, beanDefinition);
 
         Object exposedObject = bean;
         if (beanDefinition.isSingleton()) {
-            //如果有代理对象，此处获取代理对象
+            // 如果有代理对象，此处获取代理对象
             exposedObject = getSingleton(beanName);
             addSingleton(beanName, exposedObject);
         }
