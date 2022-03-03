@@ -15,10 +15,6 @@ import org.springframework.core.convert.ConversionService;
 
 import java.lang.reflect.Method;
 
-/**
- * @author derekyi
- * @date 2020/11/22
- */
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory
         implements AutowireCapableBeanFactory {
 
