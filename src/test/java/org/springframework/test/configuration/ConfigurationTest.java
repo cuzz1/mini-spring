@@ -26,11 +26,12 @@ public class ConfigurationTest {
 
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
         AppConfig appConfig = applicationContext.getBean(AppConfig.class);
+
         System.out.println(appConfig);
 
-        X x = applicationContext.getBean(X.class);
+        A a = applicationContext.getBean(A.class);
 
-        x.func("cuzz");
+        System.out.println(a);
     }
 
 }
