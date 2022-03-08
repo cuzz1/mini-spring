@@ -20,6 +20,17 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 
     private BeanDefinitionRegistry registry;
 
+    /**
+     * 1、完成了扫描
+     * 2、完成对配置的定义
+     * 3、完成Import的处理
+     * 4、ImportResource
+     * 5、@Bean注册
+     * 6、@PropertySource
+     *
+     * @param registry the bean definition registry used by the application context
+     * @throws BeansException
+     */
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
         this.registry = registry;
@@ -61,10 +72,14 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
                 }
                 String name = StrUtil.lowerFirst(method.getName());
                 Class<?> returnType = method.getReturnType();
-                registry.registerBeanDefinition(name,new BeanDefinition(returnType));
+                registry.registerBeanDefinition(name, new BeanDefinition(returnType));
             }
 
         }
+    }
+
+    private void processConfigurationClass(ConfigurationClass configurationClass) {
+        // TODO
     }
 
     /**
