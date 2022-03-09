@@ -1,5 +1,10 @@
 package org.springframework.beans.factory.annotation;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
  * Configures component scanning directives for use with @{@link org.springframework.context.annotation.Configuration} classes.
  * Provides support parallel with Spring XML's {@code <context:component-scan>} element.
@@ -19,10 +24,13 @@ package org.springframework.beans.factory.annotation;
  *
  * <p>See {@link org.springframework.context.annotation.Configuration @Configuration}'s Javadoc for usage examples.
  */
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
 public @interface ComponentScan {
 
     /**
      * Base packages to scan for annotated components.
      */
-    String[] basePackage() default {};
+    String[] basePackages() default {};
 }

@@ -4,6 +4,8 @@ import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.service.LoginService;
 
+import java.util.Arrays;
+
 /**
  * @author cuzz
  * @date 2022/3/3 15:43
@@ -29,9 +31,8 @@ public class ConfigurationTest {
 
         System.out.println(appConfig);
 
-        A a = applicationContext.getBean(A.class);
+        Arrays.stream(applicationContext.getBeanDefinitionNames()).forEach(System.out::println);
 
-        System.out.println(a);
     }
 
 }

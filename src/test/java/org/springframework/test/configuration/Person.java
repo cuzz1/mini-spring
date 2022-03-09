@@ -1,9 +1,12 @@
 package org.springframework.test.configuration;
 
+import org.springframework.stereotype.Component;
+
 /**
  * @author cuzz
  * @date 2022/3/4 21:04
  */
+@Component
 public class Person {
 
     private String name;

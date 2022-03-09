@@ -1,6 +1,5 @@
 package org.springframework.context.annotation;
 
-import cn.hutool.core.util.StrUtil;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -8,9 +7,9 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author cuzz
@@ -46,8 +45,9 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
      * @param registry
      */
     private void processConfigBeanDefinitions(BeanDefinitionRegistry registry) {
+        ConfigurationClassParser parser = new ConfigurationClassParser(registry);
 
-        List<BeanDefinition> configCandidates = new ArrayList<>();
+        Set<BeanDefinition> configCandidates = new HashSet<>();
 
         String[] beanDefinitionNames = registry.getBeanDefinitionNames();
         for (String beanName : beanDefinitionNames) {
@@ -57,29 +57,41 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
                 configCandidates.add(beanDef);
             }
         }
-        parse(configCandidates);
+        parser.parse(configCandidates);
     }
 
     private void parse(List<BeanDefinition> configCandidates) {
         for (BeanDefinition bd : configCandidates) {
-            Class<?> beanClass = bd.getBeanClass();
-            Method[] methods = beanClass.getDeclaredMethods();
-            // @bean注解处理
-            for (Method method : methods) {
-                Bean beanAnnotation = method.getAnnotation(Bean.class);
-                if (beanAnnotation == null) {
-                    continue;
-                }
-                String name = StrUtil.lowerFirst(method.getName());
-                Class<?> returnType = method.getReturnType();
-                registry.registerBeanDefinition(name, new BeanDefinition(returnType));
-            }
+            // Class<?> beanClass = bd.getBeanClass();
+            // Method[] methods = beanClass.getDeclaredMethods();
+            // // @bean注解处理
+            // for (Method method : methods) {
+            //     Bean beanAnnotation = method.getAnnotation(Bean.class);
+            //     if (beanAnnotation == null) {
+            //         continue;
+            //     }
+            //     String name = StrUtil.lowerFirst(method.getName());
+            //     Class<?> returnType = method.getReturnType();
+            //     registry.registerBeanDefinition(name, new BeanDefinition(returnType));
+            // }
+            processConfigurationClass(new ConfigurationClass(bd));
 
         }
     }
 
+    /**
+     * ConfigurationClass 是一个配置类
+     *
+     * @param configurationClass
+     */
     private void processConfigurationClass(ConfigurationClass configurationClass) {
         // TODO
+        doProcessConfigurationClass(configurationClass);
+
+    }
+
+    private void doProcessConfigurationClass(ConfigurationClass configurationClass) {
+
     }
 
     /**

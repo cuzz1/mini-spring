@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
  * @author cuzz
  * @date 2022/3/3 15:41
  */
+@ComponentScan(basePackages = {"org.springframework.test.configuration"})
 @Configuration
-@ComponentScan(basePackage = {"org.springframework.test.configuration"})
 public class AppConfig {
 
     @Bean
