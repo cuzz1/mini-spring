@@ -8,7 +8,6 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProce
 
 import java.lang.annotation.Annotation;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -58,40 +57,6 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
             }
         }
         parser.parse(configCandidates);
-    }
-
-    private void parse(List<BeanDefinition> configCandidates) {
-        for (BeanDefinition bd : configCandidates) {
-            // Class<?> beanClass = bd.getBeanClass();
-            // Method[] methods = beanClass.getDeclaredMethods();
-            // // @bean注解处理
-            // for (Method method : methods) {
-            //     Bean beanAnnotation = method.getAnnotation(Bean.class);
-            //     if (beanAnnotation == null) {
-            //         continue;
-            //     }
-            //     String name = StrUtil.lowerFirst(method.getName());
-            //     Class<?> returnType = method.getReturnType();
-            //     registry.registerBeanDefinition(name, new BeanDefinition(returnType));
-            // }
-            processConfigurationClass(new ConfigurationClass(bd));
-
-        }
-    }
-
-    /**
-     * ConfigurationClass 是一个配置类
-     *
-     * @param configurationClass
-     */
-    private void processConfigurationClass(ConfigurationClass configurationClass) {
-        // TODO
-        doProcessConfigurationClass(configurationClass);
-
-    }
-
-    private void doProcessConfigurationClass(ConfigurationClass configurationClass) {
-
     }
 
     /**

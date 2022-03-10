@@ -27,20 +27,7 @@ public class ConfigurationClassParser {
 
     private void parse(List<BeanDefinition> configCandidates) {
         for (BeanDefinition bd : configCandidates) {
-            // Class<?> beanClass = bd.getBeanClass();
-            // Method[] methods = beanClass.getDeclaredMethods();
-            // // @bean注解处理
-            // for (Method method : methods) {
-            //     Bean beanAnnotation = method.getAnnotation(Bean.class);
-            //     if (beanAnnotation == null) {
-            //         continue;
-            //     }
-            //     String name = StrUtil.lowerFirst(method.getName());
-            //     Class<?> returnType = method.getReturnType();
-            //     registry.registerBeanDefinition(name, new BeanDefinition(returnType));
-            // }
             processConfigurationClass(new ConfigurationClass(bd));
-
         }
     }
 

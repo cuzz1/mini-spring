@@ -29,7 +29,6 @@ public class ConfigurationTest {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
         AppConfig appConfig = applicationContext.getBean(AppConfig.class);
 
-        System.out.println(appConfig);
 
         Arrays.stream(applicationContext.getBeanDefinitionNames()).forEach(System.out::println);
 
