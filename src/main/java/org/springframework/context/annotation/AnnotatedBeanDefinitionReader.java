@@ -2,8 +2,10 @@ package org.springframework.context.annotation;
 
 import cn.hutool.core.util.StrUtil;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.core.type.AnnotationMetadata;
 
 /**
  * Convenient adapter for programmatic registration of bean classes.
@@ -58,13 +60,21 @@ public class AnnotatedBeanDefinitionReader {
     }
 
     private void doRegisterBean(Class<?> beanClass) {
-        Configuration annotation = beanClass.getAnnotation(Configuration.class);
-        if (annotation == null) {
-            throw new BeansException("Not Configuration Class: " + beanClass.getSimpleName());
+        AnnotatedBeanDefinition annotatedBeanDefinition = new AnnotatedBeanDefinition(beanClass);
+
+        AnnotationMetadata metadata = annotatedBeanDefinition.getMetadata();
+        if (!metadata.hasMetaAnnotation(Configuration.class.getName())) {
+              throw new BeansException("Not Configuration Class: " + beanClass.getSimpleName());
         }
+
+        // Configuration annotation = beanClass.getAnnotation(Configuration.class);
+        // if (annotation == null) {
+        //     throw new BeansException("Not Configuration Class: " + beanClass.getSimpleName());
+        // }
+
         String beanName = StrUtil.lowerFirst(beanClass.getSimpleName());
 
-        registry.registerBeanDefinition(beanName, new BeanDefinition(beanClass));
+        registry.registerBeanDefinition(beanName, annotatedBeanDefinition);
     }
 
     private void registerAnnotationConfigProcessors() {

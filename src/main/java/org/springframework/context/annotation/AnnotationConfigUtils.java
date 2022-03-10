@@ -1,8 +1,10 @@
 package org.springframework.context.annotation;
 
+import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.core.type.AnnotationMetadata;
 
 /**
  * Utility class that allows for convenient registration of common
@@ -55,5 +57,18 @@ public class AnnotationConfigUtils {
         if (!registry.containsBeanDefinition(AUTOWIRED_ANNOTATION_PROCESSOR_BEAN_NAME)) {
             registry.registerBeanDefinition(AUTOWIRED_ANNOTATION_PROCESSOR_BEAN_NAME, new BeanDefinition(AutowiredAnnotationBeanPostProcessor.class));
         }
+    }
+
+    /**
+     * 处理属性
+     *
+     * @param abd
+     */
+    public static void processCommonDefinitionAnnotations(AnnotatedBeanDefinition abd) {
+        processCommonDefinitionAnnotations(abd, abd.getMetadata());
+    }
+
+    private static void processCommonDefinitionAnnotations(AnnotatedBeanDefinition abd, AnnotationMetadata metadata) {
+        // TODO
     }
 }
