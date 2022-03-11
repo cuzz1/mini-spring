@@ -1,6 +1,5 @@
 package org.springframework.core.type;
 
-import org.springframework.core.type.classreading.MergedAnnotation;
 import org.springframework.core.type.classreading.StandardAnnotationMetadata;
 
 /**
@@ -9,14 +8,8 @@ import org.springframework.core.type.classreading.StandardAnnotationMetadata;
  */
 public interface AnnotationMetadata extends ClassMetadata, AnnotatedTypeMetadata {
 
-
     static AnnotationMetadata introspect(Class<?> type) {
         return StandardAnnotationMetadata.from(type);
     }
 
-
-    default boolean hasMetaAnnotation(String metaAnnotationName) {
-        return getAnnotations().get(metaAnnotationName,
-                MergedAnnotation::isMetaPresent).isPresent();
-    }
 }

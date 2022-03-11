@@ -1,7 +1,5 @@
 package org.springframework.core.type;
 
-import org.springframework.core.type.classreading.MergedAnnotations;
-
 /**
  * Defines access to the annotations of a specific type ({@link AnnotationMetadata class}
  * or {@link MethodMetadata method}), in a form that does not necessarily require the
@@ -13,12 +11,16 @@ import org.springframework.core.type.classreading.MergedAnnotations;
  */
 public interface AnnotatedTypeMetadata {
 
+
     /**
-     * Return annotation details based on the direct annotations of the
-     * underlying element.
-     * @return merged annotations based on the direct annotations
-     * @since 5.2
+     * Determine whether the underlying class has an annotation that is itself
+     * annotated with the meta-annotation of the given type.
+     *
+     * @param metaAnnotationName the fully qualified class name of the
+     *                           meta-annotation type to look for
+     * @return {@code true} if a matching meta-annotation is present
      */
-    MergedAnnotations getAnnotations();
+    boolean hasMetaAnnotation(String metaAnnotationName);
+
 
 }
