@@ -39,6 +39,7 @@ public class ConfigurationTest {
 打印结果：
 
 ```
+a
 appConfig
 person
 org.springframework.context.annotation.internalConfigurationAnnotationProcessor
