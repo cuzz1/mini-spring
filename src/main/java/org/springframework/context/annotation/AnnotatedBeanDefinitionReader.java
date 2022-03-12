@@ -63,7 +63,7 @@ public class AnnotatedBeanDefinitionReader {
         AnnotatedBeanDefinition annotatedBeanDefinition = new AnnotatedBeanDefinition(beanClass);
 
         AnnotationMetadata metadata = annotatedBeanDefinition.getMetadata();
-        if (!metadata.hasMetaAnnotation(Configuration.class.getName())) {
+        if (!metadata.hasMetaAnnotation(Configuration.class)) {
               throw new BeansException("Not Configuration Class: " + beanClass.getSimpleName());
         }
 

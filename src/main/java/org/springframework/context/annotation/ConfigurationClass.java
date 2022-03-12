@@ -1,6 +1,10 @@
 package org.springframework.context.annotation;
 
-import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.core.type.AnnotationMetadata;
+import org.springframework.core.type.classreading.StandardAnnotationMetadata;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * @author cuzz
@@ -8,13 +12,42 @@ import org.springframework.beans.factory.config.BeanDefinition;
  */
 public class ConfigurationClass {
 
-    private final BeanDefinition beanDefinition;
+    private final AnnotationMetadata metadata;
 
-    public ConfigurationClass(BeanDefinition beanDefinition) {
-        this.beanDefinition = beanDefinition;
+    private final Class<?> configClass;
+
+    private final String beanName;
+
+    private final Set<BeanMethod> beanMethods = new LinkedHashSet<>();
+
+
+    public ConfigurationClass(Class<?> configClass, AnnotationMetadata metadata, String beanName) {
+        if (metadata == null) {
+            metadata = new StandardAnnotationMetadata(configClass);
+        }
+        this.metadata = metadata;
+        this.configClass = configClass;
+        this.beanName = beanName;
     }
 
-    public BeanDefinition getBeanDefinition() {
-        return beanDefinition;
+
+    public AnnotationMetadata getMetadata() {
+        return metadata;
+    }
+
+    public String getBeanName() {
+        return beanName;
+    }
+
+    public void addBeanMethod(BeanMethod method) {
+        this.beanMethods.add(method);
+    }
+
+    public Set<BeanMethod> getBeanMethods() {
+        return beanMethods;
+    }
+
+    public Class<?> getConfigClass() {
+        return configClass;
     }
 }

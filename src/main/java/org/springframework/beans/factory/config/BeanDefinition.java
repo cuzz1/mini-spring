@@ -18,7 +18,6 @@ public class BeanDefinition {
     public static String SCOPE_PROTOTYPE = "prototype";
 
 
-
     private Class beanClass;
 
     private PropertyValues propertyValues;
@@ -58,6 +57,10 @@ public class BeanDefinition {
 
     public Class getBeanClass() {
         return beanClass;
+    }
+
+    public String getBeanClassName() {
+        return beanClass.getName();
     }
 
     public void setBeanClass(Class beanClass) {

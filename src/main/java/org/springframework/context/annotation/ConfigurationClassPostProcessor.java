@@ -3,6 +3,7 @@ package org.springframework.context.annotation;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 
@@ -18,6 +19,9 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 
     private BeanDefinitionRegistry registry;
 
+    private ConfigurationClassBeanDefinitionReader reader;
+
+
     /**
      * 1、完成了扫描
      * 2、完成对配置的定义
@@ -32,7 +36,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
         this.registry = registry;
-        //
+        this.reader = new ConfigurationClassBeanDefinitionReader(registry);
         processConfigBeanDefinitions(registry);
 
     }
@@ -46,17 +50,21 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
     private void processConfigBeanDefinitions(BeanDefinitionRegistry registry) {
         ConfigurationClassParser parser = new ConfigurationClassParser(registry);
 
-        Set<BeanDefinition> configCandidates = new HashSet<>();
+        Set<BeanDefinitionHolder> configCandidates = new HashSet<>();
 
         String[] beanDefinitionNames = registry.getBeanDefinitionNames();
         for (String beanName : beanDefinitionNames) {
             BeanDefinition beanDef = registry.getBeanDefinition(beanName);
             boolean b = checkConfigurationClassCandidate(beanDef);
             if (b) {
-                configCandidates.add(beanDef);
+                configCandidates.add(new BeanDefinitionHolder(beanDef, beanName));
             }
         }
         parser.parse(configCandidates);
+        Set<ConfigurationClass> configClasses = parser.getConfigurationClasses();
+
+        this.reader.loadBeanDefinitions(configClasses);
+
     }
 
     /**

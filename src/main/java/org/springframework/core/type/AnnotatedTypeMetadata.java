@@ -1,5 +1,7 @@
 package org.springframework.core.type;
 
+import java.lang.annotation.Annotation;
+
 /**
  * Defines access to the annotations of a specific type ({@link AnnotationMetadata class}
  * or {@link MethodMetadata method}), in a form that does not necessarily require the
@@ -12,15 +14,10 @@ package org.springframework.core.type;
 public interface AnnotatedTypeMetadata {
 
 
-    /**
-     * Determine whether the underlying class has an annotation that is itself
-     * annotated with the meta-annotation of the given type.
-     *
-     * @param metaAnnotationName the fully qualified class name of the
-     *                           meta-annotation type to look for
-     * @return {@code true} if a matching meta-annotation is present
-     */
-    boolean hasMetaAnnotation(String metaAnnotationName);
+
+
+
+
 
 
 }
