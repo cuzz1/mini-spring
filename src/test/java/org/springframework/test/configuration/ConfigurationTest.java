@@ -4,8 +4,6 @@ import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.service.LoginService;
 
-import java.util.Arrays;
-
 /**
  * @author cuzz
  * @date 2022/3/3 15:43
@@ -27,10 +25,12 @@ public class ConfigurationTest {
     public void testAnnotationConfig() throws Exception {
 
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
-        AppConfig appConfig = applicationContext.getBean(AppConfig.class);
 
+        String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
+        for (String beanName : beanDefinitionNames) {
+            System.out.println("bean: " + applicationContext.getBean(beanName));
+        }
 
-        Arrays.stream(applicationContext.getBeanDefinitionNames()).forEach(System.out::println);
 
     }
 

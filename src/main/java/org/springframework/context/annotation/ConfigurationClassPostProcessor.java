@@ -84,7 +84,6 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-
     }
 
 }

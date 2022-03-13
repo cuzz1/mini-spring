@@ -7,6 +7,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.util.StringValueResolver;
 
 import java.util.ArrayList;
@@ -122,6 +123,9 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
     @Override
     public ConversionService getConversionService() {
+        if (this.conversionService == null) {
+            return new DefaultConversionService();
+        }
         return conversionService;
     }
 

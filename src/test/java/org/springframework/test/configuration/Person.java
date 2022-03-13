@@ -1,5 +1,6 @@
 package org.springframework.test.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,7 +10,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class Person {
 
+    @Value("${name}")
     private String name;
+
+    @Value("${age}")
     private Integer age;
 
     public String getName() {

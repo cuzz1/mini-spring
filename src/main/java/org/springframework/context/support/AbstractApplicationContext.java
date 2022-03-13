@@ -35,7 +35,6 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 
 
     /**
-     *
      * @throws BeansException
      */
     @Override
@@ -123,13 +122,18 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
      * @param beanFactory
      */
     private void invokeBeanFactoryPostProcessors(ConfigurableListableBeanFactory beanFactory) {
-        BeanDefinitionRegistry registry =  (BeanDefinitionRegistry) beanFactory;
+        BeanDefinitionRegistry registry = (BeanDefinitionRegistry) beanFactory;
         Map<String, BeanFactoryPostProcessor> beanFactoryPostProcessorMap = beanFactory.getBeansOfType(BeanFactoryPostProcessor.class);
         for (BeanFactoryPostProcessor beanFactoryPostProcessor : beanFactoryPostProcessorMap.values()) {
             if (beanFactoryPostProcessor instanceof BeanDefinitionRegistryPostProcessor) {
                 ((BeanDefinitionRegistryPostProcessor) beanFactoryPostProcessor).postProcessBeanDefinitionRegistry(registry);
             }
 
+        }
+
+        // 再获取一次，上面执行postProcessBeanDefinitionRegistry可能会注册新的
+        Map<String, BeanFactoryPostProcessor> beanFactoryPostProcessorMapNew = beanFactory.getBeansOfType(BeanFactoryPostProcessor.class);
+        for (BeanFactoryPostProcessor beanFactoryPostProcessor : beanFactoryPostProcessorMapNew.values()) {
             beanFactoryPostProcessor.postProcessBeanFactory(beanFactory);
         }
     }

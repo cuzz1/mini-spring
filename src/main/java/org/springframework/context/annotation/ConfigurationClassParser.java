@@ -1,6 +1,9 @@
 package org.springframework.context.annotation;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.PropertyValue;
+import org.springframework.beans.PropertyValues;
+import org.springframework.beans.factory.PropertyPlaceholderConfigurer;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.annotation.ComponentScan;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -63,6 +66,18 @@ public class ConfigurationClassParser {
     private void doProcessConfigurationClass(ConfigurationClass configurationClass) {
 
         AnnotationMetadata metadata = configurationClass.getMetadata();
+
+
+        // Process any @PropertySource annotations
+        PropertySource propertySource = metadata.getAnnotation(PropertySource.class);
+        if (propertySource != null) {
+            String[] locations = propertySource.value();
+            PropertyValues propertyValues = new PropertyValues();
+            propertyValues.addPropertyValue(new PropertyValue("location", locations[0]));
+            BeanDefinition beanDefinition = new BeanDefinition(PropertyPlaceholderConfigurer.class, propertyValues);
+            this.registry.registerBeanDefinition(PropertyPlaceholderConfigurer.class.getSimpleName(),beanDefinition);
+        }
+
 
         // Process any @ComponentScan annotations
         ComponentScan componentScan = metadata.getAnnotation(ComponentScan.class);
