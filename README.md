@@ -9,8 +9,6 @@
 - 解析方法上上@Bean注解
 - 解析配置文件@PropertySource注册
 
-- 配置
-
 ```java
 
 @Configuration
@@ -31,7 +29,6 @@ public class AppConfig {
 }
 ```
 
-- Person
 
 ```java
 
