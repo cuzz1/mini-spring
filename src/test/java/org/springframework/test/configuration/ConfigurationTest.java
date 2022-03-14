@@ -2,7 +2,6 @@ package org.springframework.test.configuration;
 
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.test.service.LoginService;
 
 /**
  * @author cuzz
@@ -12,12 +11,6 @@ public class ConfigurationTest {
 
     @Test
     public void testAnnotationConfigScan() throws Exception {
-
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
-        applicationContext.scan("org.springframework.test");
-        applicationContext.refresh();
-        LoginService bean = applicationContext.getBean(LoginService.class);
-        System.out.println(bean);
     }
 
 

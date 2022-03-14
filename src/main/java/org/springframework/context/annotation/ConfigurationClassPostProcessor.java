@@ -60,9 +60,11 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
                 configCandidates.add(new BeanDefinitionHolder(beanDef, beanName));
             }
         }
+        // 解析成ConfigurationClass
         parser.parse(configCandidates);
         Set<ConfigurationClass> configClasses = parser.getConfigurationClasses();
 
+        // 把ConfigurationClass转换为BeanDefinition并注册
         this.reader.loadBeanDefinitions(configClasses);
 
     }

@@ -18,4 +18,9 @@ public class AppConfig {
     public A a() {
         return new A();
     }
+
+    @Bean
+    public Car car() {
+        return new Car("BMW", "red");
+    }
 }

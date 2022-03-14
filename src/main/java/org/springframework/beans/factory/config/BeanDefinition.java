@@ -32,6 +32,11 @@ public class BeanDefinition {
 
     private boolean prototype = false;
 
+
+    private String factoryBeanName;
+
+    private String factoryMethodName;
+
     public BeanDefinition(Class beanClass) {
         this(beanClass, null);
     }
@@ -39,6 +44,22 @@ public class BeanDefinition {
     public BeanDefinition(Class beanClass, PropertyValues propertyValues) {
         this.beanClass = beanClass;
         this.propertyValues = propertyValues != null ? propertyValues : new PropertyValues();
+    }
+
+    public String getFactoryBeanName() {
+        return factoryBeanName;
+    }
+
+    public void setFactoryBeanName(String factoryBeanName) {
+        this.factoryBeanName = factoryBeanName;
+    }
+
+    public String getFactoryMethodName() {
+        return factoryMethodName;
+    }
+
+    public void setFactoryMethodName(String factoryMethodName) {
+        this.factoryMethodName = factoryMethodName;
     }
 
     public void setScope(String scope) {

@@ -2,6 +2,7 @@ package org.springframework.beans.factory.support;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ClassUtil;
+import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.TypeUtil;
 import org.springframework.beans.BeansException;
@@ -10,8 +11,10 @@ import org.springframework.beans.PropertyValues;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.*;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.core.type.MethodMetadata;
 
 import java.lang.reflect.Method;
 
@@ -179,7 +182,32 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
      * @return
      */
     protected Object createBeanInstance(BeanDefinition beanDefinition) {
+
+        if (beanDefinition.getFactoryMethodName() != null) {
+            return instantiateUsingFactoryMethod(beanDefinition);
+        }
         return getInstantiationStrategy().instantiate(beanDefinition);
+    }
+
+    protected Object instantiateUsingFactoryMethod(BeanDefinition beanDefinition) {
+
+        AnnotatedBeanDefinition abd = (AnnotatedBeanDefinition) beanDefinition;
+        String factoryBeanName = beanDefinition.getFactoryBeanName();
+        Object bean = this.getBean(factoryBeanName);
+
+
+        // 使用反射调用
+        MethodMetadata factoryMethodMetadata = abd.getFactoryMethodMetadata();
+        String methodName = factoryMethodMetadata.getMethodName();
+
+        Method method = ReflectUtil.getMethod(bean.getClass(), methodName);
+
+        try {
+            return method.invoke(bean);
+        } catch (Exception e) {
+            throw new BeansException("invoke method error, methodName :" + methodName);
+        }
+
     }
 
     /**

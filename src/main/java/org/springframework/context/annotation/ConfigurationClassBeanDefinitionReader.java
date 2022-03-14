@@ -1,7 +1,6 @@
 package org.springframework.context.annotation;
 
-import cn.hutool.core.util.StrUtil;
-import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.core.io.Resource;
 import org.springframework.core.type.MethodMetadata;
@@ -52,11 +51,14 @@ public class ConfigurationClassBeanDefinitionReader {
         MethodMetadata methodMetadata = beanMethod.getMetadata();
 
         String methodName = methodMetadata.getMethodName();
+        String beanName = configClass.getBeanName();
 
-        BeanDefinition beanDefToRegister = new BeanDefinition(methodMetadata.getReturnType());
+        AnnotatedBeanDefinition beanDefToRegister = new AnnotatedBeanDefinition(configClass.getConfigClass(), configClass.getMetadata() ,beanMethod.getMetadata());
 
-        this.registry.registerBeanDefinition(StrUtil.lowerFirst(methodName), beanDefToRegister);
+        beanDefToRegister.setFactoryMethodName(methodName);
+        beanDefToRegister.setFactoryBeanName(beanName);
 
+        this.registry.registerBeanDefinition(methodName, beanDefToRegister);
     }
 
 

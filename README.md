@@ -22,6 +22,12 @@ public class AppConfig {
     public A a() {
         return new A();
     }
+
+
+    @Bean
+    public Car car() {
+        return new Car("BMW", "red");
+    }
 }
 ```
 
@@ -61,12 +67,14 @@ public class ConfigurationTest {
 打印结果：
 
 ```
-bean: org.springframework.beans.factory.PropertyPlaceholderConfigurer@48a242ce
-bean: org.springframework.test.configuration.A@1e4a7dd4
-bean: org.springframework.test.configuration.AppConfig@4f51b3e0
+bean: org.springframework.beans.factory.PropertyPlaceholderConfigurer@4b9e255
+bean: org.springframework.test.configuration.A@5e57643e
+bean: org.springframework.test.configuration.AppConfig@133e16fd
+bean: Car{name='BMW', color='red'}
 bean: Person{name='cuzz', age=18}
-bean: org.springframework.context.annotation.ConfigurationClassPostProcessor@4b9e255
-bean: org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor@5e57643e
+bean: org.springframework.context.annotation.ConfigurationClassPostProcessor@51b279c9
+bean: org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor@1ad282e0
+
 
 ```
 
