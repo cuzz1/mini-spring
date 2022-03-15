@@ -68,9 +68,6 @@ public class ConfigurationTest {
 Car customInitMethod...
 beanName: myCar bean: Car{name='BMW', color='red'}
 Car customDestroyMethod...
--------------------
-
-
 ```
 
 ## 参考
