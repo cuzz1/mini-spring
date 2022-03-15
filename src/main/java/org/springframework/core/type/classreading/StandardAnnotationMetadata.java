@@ -27,15 +27,6 @@ public class StandardAnnotationMetadata extends StandardClassMetadata implements
         return new StandardAnnotationMetadata(type);
     }
 
-    @Override
-    public boolean hasMetaAnnotation(String annotationName) {
-        for (Annotation ann : this.annotations) {
-            if (ann.annotationType().getName().equals(annotationName)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     @Override
     public boolean hasMetaAnnotation(Class<? extends Annotation> annotationType) {
@@ -47,15 +38,6 @@ public class StandardAnnotationMetadata extends StandardClassMetadata implements
         return getIntrospectedClass().getAnnotation(annotationType);
     }
 
-    @Override
-    public boolean hasAnnotatedMethods(String annotationName) {
-        return false;
-    }
-
-    @Override
-    public Set<MethodMetadata> getAnnotatedMethods(String annotationName) {
-        return null;
-    }
 
     @Override
     public Set<MethodMetadata> getAnnotatedMethods(Class<? extends Annotation> annotationType) {

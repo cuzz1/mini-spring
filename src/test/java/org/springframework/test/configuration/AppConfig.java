@@ -14,12 +14,12 @@ import org.springframework.context.annotation.PropertySource;
 @ComponentScan(basePackages = {"org.springframework.test.configuration"})
 public class AppConfig {
 
-    @Bean
+    @Bean(name = "aa")
     public A a() {
         return new A();
     }
 
-    @Bean
+    @Bean(name = "myCar")
     public Car car() {
         return new Car("BMW", "red");
     }

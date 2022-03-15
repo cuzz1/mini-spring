@@ -1,5 +1,6 @@
 package org.springframework.core.type;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 /**
@@ -22,5 +23,21 @@ public class StandardMethodMetadata implements MethodMetadata {
     @Override
     public Class<?> getReturnType() {
         return introspectedMethod.getReturnType();
+    }
+
+    public Method getIntrospectedMethod() {
+        return introspectedMethod;
+    }
+
+    @Override
+    public boolean hasMetaAnnotation(Class<? extends Annotation> annotationType) {
+        Annotation annotation = introspectedMethod.getAnnotation(annotationType);
+        return annotation != null;
+    }
+
+    @Override
+    public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
+        return introspectedMethod.getAnnotation(annotationType);
+
     }
 }

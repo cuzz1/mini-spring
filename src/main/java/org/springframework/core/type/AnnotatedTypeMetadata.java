@@ -13,6 +13,16 @@ import java.lang.annotation.Annotation;
  */
 public interface AnnotatedTypeMetadata {
 
+    /**
+     * Determine whether the underlying class has an annotation that is itself
+     * annotated with the meta-annotation of the given type.
+     *
+     * @return {@code true} if a matching meta-annotation is present
+     */
+    boolean hasMetaAnnotation(Class<? extends Annotation> annotationType);
+
+    <A extends Annotation> A getAnnotation(Class<A> annotationType);
+
 
 
 

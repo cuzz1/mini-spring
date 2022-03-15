@@ -21,7 +21,9 @@ public class ConfigurationTest {
 
         String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
         for (String beanName : beanDefinitionNames) {
+            System.out.println("name: " + beanName);
             System.out.println("bean: " + applicationContext.getBean(beanName));
+            System.out.println("--------------------");
         }
 
 

@@ -51,12 +51,17 @@ public class ConfigurationTest {
 
     @Test
     public void testAnnotationConfig() throws Exception {
+
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+
         String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
         for (String beanName : beanDefinitionNames) {
+            System.out.println("name: " + beanName);
             System.out.println("bean: " + applicationContext.getBean(beanName));
+            System.out.println("--------------------");
         }
     }
+
 }
 
 ```
@@ -64,13 +69,27 @@ public class ConfigurationTest {
 打印结果：
 
 ```
+name: PropertyPlaceholderConfigurer
 bean: org.springframework.beans.factory.PropertyPlaceholderConfigurer@4b9e255
+--------------------
+name: aa
 bean: org.springframework.test.configuration.A@5e57643e
-bean: org.springframework.test.configuration.AppConfig@133e16fd
+--------------------
+name: myCar
 bean: Car{name='BMW', color='red'}
+--------------------
+name: appConfig
+bean: org.springframework.test.configuration.AppConfig@133e16fd
+--------------------
+name: person
 bean: Person{name='cuzz', age=18}
+--------------------
+name: org.springframework.context.annotation.internalConfigurationAnnotationProcessor
 bean: org.springframework.context.annotation.ConfigurationClassPostProcessor@51b279c9
+--------------------
+name: org.springframework.context.annotation.internalAutowiredAnnotationProcessor
 bean: org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor@1ad282e0
+-------------------
 
 
 ```

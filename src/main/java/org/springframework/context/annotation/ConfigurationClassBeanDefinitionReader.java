@@ -51,14 +51,22 @@ public class ConfigurationClassBeanDefinitionReader {
         MethodMetadata methodMetadata = beanMethod.getMetadata();
 
         String methodName = methodMetadata.getMethodName();
-        String beanName = configClass.getBeanName();
 
-        AnnotatedBeanDefinition beanDefToRegister = new AnnotatedBeanDefinition(configClass.getConfigClass(), configClass.getMetadata() ,beanMethod.getMetadata());
+        Bean beanAnnotation = methodMetadata.getAnnotation(Bean.class);
+
+        String[] names = beanAnnotation.name();
+        String beanName = methodName;
+        if (names.length > 0) {
+            beanName = names[0];
+        }
+
+        String factoryBeanName = configClass.getBeanName();
+        AnnotatedBeanDefinition beanDefToRegister = new AnnotatedBeanDefinition(configClass.getConfigClass(), configClass.getMetadata(), beanMethod.getMetadata());
 
         beanDefToRegister.setFactoryMethodName(methodName);
-        beanDefToRegister.setFactoryBeanName(beanName);
+        beanDefToRegister.setFactoryBeanName(factoryBeanName);
 
-        this.registry.registerBeanDefinition(methodName, beanDefToRegister);
+        this.registry.registerBeanDefinition(beanName, beanDefToRegister);
     }
 
 
