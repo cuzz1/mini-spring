@@ -16,10 +16,8 @@ public @interface Bean {
      * The name of this bean, or if several names, a primary bean name plus aliases.
      * <p>If left unspecified, the name of the bean is the name of the annotated method.
      * If specified, the method name is ignored.
-     * <p>The bean name and aliases may also be configured via the {@link #value}
      * attribute if no other attributes are declared.
      *
-     * @see #value
      */
     String[] name() default {};
 
@@ -32,7 +30,7 @@ public @interface Bean {
      * @see org.springframework.beans.factory.InitializingBean
      * @see org.springframework.context.ConfigurableApplicationContext#refresh()
      */
-    // String initMethod() default "";
+    String initMethod() default "";
 
     /**
      * The optional name of a method to call on the bean instance upon closing the
@@ -59,8 +57,6 @@ public @interface Bean {
      * factory, which is always the case for singletons but not guaranteed for any
      * other scope.
      *
-     * @see org.springframework.beans.factory.DisposableBean
-     * @see org.springframework.context.ConfigurableApplicationContext#close()
      */
-    // String destroyMethod() default AbstractBeanDefinition.INFER_METHOD;
+    String destroyMethod() default "";
 }

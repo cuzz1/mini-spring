@@ -1,5 +1,6 @@
 package org.springframework.context.annotation;
 
+import cn.hutool.core.util.StrUtil;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.core.io.Resource;
@@ -60,11 +61,25 @@ public class ConfigurationClassBeanDefinitionReader {
             beanName = names[0];
         }
 
+
+
+
         String factoryBeanName = configClass.getBeanName();
-        AnnotatedBeanDefinition beanDefToRegister = new AnnotatedBeanDefinition(configClass.getConfigClass(), configClass.getMetadata(), beanMethod.getMetadata());
+        AnnotatedBeanDefinition beanDefToRegister = new AnnotatedBeanDefinition(methodMetadata.getReturnType(), configClass.getMetadata(), beanMethod.getMetadata());
 
         beanDefToRegister.setFactoryMethodName(methodName);
         beanDefToRegister.setFactoryBeanName(factoryBeanName);
+
+
+        String initMethod = beanAnnotation.initMethod();
+        if (StrUtil.isNotBlank(initMethod)) {
+            beanDefToRegister.setInitMethodName(initMethod);
+        }
+
+        String destroyMethod = beanAnnotation.destroyMethod();
+        if (StrUtil.isNotBlank(destroyMethod)) {
+            beanDefToRegister.setDestroyMethodName(destroyMethod);
+        }
 
         this.registry.registerBeanDefinition(beanName, beanDefToRegister);
     }

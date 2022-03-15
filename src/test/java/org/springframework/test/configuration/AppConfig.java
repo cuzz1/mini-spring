@@ -19,7 +19,7 @@ public class AppConfig {
         return new A();
     }
 
-    @Bean(name = "myCar")
+    @Bean(name = "myCar", initMethod = "customInitMethod", destroyMethod = "customDestroyMethod")
     public Car car() {
         return new Car("BMW", "red");
     }

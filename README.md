@@ -10,19 +10,17 @@
 - 解析配置文件@PropertySource注册
 
 ```java
-
 @Configuration
-@ComponentScan(basePackages = {"org.springframework.test.configuration"})
 @PropertySource("classpath:person.properties")
+@ComponentScan(basePackages = {"org.springframework.test.configuration"})
 public class AppConfig {
 
-    @Bean
+    @Bean(name = "aa")
     public A a() {
         return new A();
     }
 
-
-    @Bean
+    @Bean(name = "myCar", initMethod = "initMethod", destroyMethod = "destroyMethod")
     public Car car() {
         return new Car("BMW", "red");
     }
@@ -51,17 +49,15 @@ public class ConfigurationTest {
 
     @Test
     public void testAnnotationConfig() throws Exception {
-
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
-
-        String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
-        for (String beanName : beanDefinitionNames) {
-            System.out.println("name: " + beanName);
-            System.out.println("bean: " + applicationContext.getBean(beanName));
-            System.out.println("--------------------");
+        Map<String, Car> beansMap = applicationContext.getBeansOfType(Car.class);
+        for (Map.Entry<String, Car> stringCarEntry : beansMap.entrySet()) {
+            System.out.println("beanName: " + stringCarEntry.getKey() + " bean: " + stringCarEntry.getValue());
         }
-    }
+        applicationContext.close();
 
+
+    }
 }
 
 ```
@@ -69,26 +65,9 @@ public class ConfigurationTest {
 打印结果：
 
 ```
-name: PropertyPlaceholderConfigurer
-bean: org.springframework.beans.factory.PropertyPlaceholderConfigurer@4b9e255
---------------------
-name: aa
-bean: org.springframework.test.configuration.A@5e57643e
---------------------
-name: myCar
-bean: Car{name='BMW', color='red'}
---------------------
-name: appConfig
-bean: org.springframework.test.configuration.AppConfig@133e16fd
---------------------
-name: person
-bean: Person{name='cuzz', age=18}
---------------------
-name: org.springframework.context.annotation.internalConfigurationAnnotationProcessor
-bean: org.springframework.context.annotation.ConfigurationClassPostProcessor@51b279c9
---------------------
-name: org.springframework.context.annotation.internalAutowiredAnnotationProcessor
-bean: org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor@1ad282e0
+Car customInitMethod...
+beanName: myCar bean: Car{name='BMW', color='red'}
+Car customDestroyMethod...
 -------------------
 
 

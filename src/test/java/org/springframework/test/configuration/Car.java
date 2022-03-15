@@ -12,6 +12,14 @@ public class Car {
     public Car() {
     }
 
+    public void customInitMethod() {
+        System.out.println("Car customInitMethod...");
+    }
+
+
+    public void customDestroyMethod() {
+        System.out.println("Car customDestroyMethod...");
+    }
 
     public Car(String name, String color) {
         this.name = name;
