@@ -1,8 +1,11 @@
 package org.springframework.test.configuration;
 
+import cn.hutool.core.annotation.AnnotationUtil;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
 
+import java.lang.reflect.Method;
 import java.util.Map;
 
 /**
@@ -12,7 +15,12 @@ import java.util.Map;
 public class ConfigurationTest {
 
     @Test
-    public void testAnnotationConfigScan() throws Exception {
+    public void test() throws Exception {
+        Method method = AppConfig.class.getMethod("car");
+
+        Map<String, Object> annotationValueMap = AnnotationUtil.getAnnotationValueMap(method, Bean.class);
+        System.out.println(annotationValueMap);
+
     }
 
 
