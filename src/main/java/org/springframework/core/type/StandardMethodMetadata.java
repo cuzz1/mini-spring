@@ -2,6 +2,7 @@ package org.springframework.core.type;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.Map;
 
 /**
  * @author cuzz
@@ -39,5 +40,20 @@ public class StandardMethodMetadata implements MethodMetadata {
     public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
         return introspectedMethod.getAnnotation(annotationType);
 
+    }
+
+    @Override
+    public Map<String, Object> getAnnotationAttributes(Class<? extends Annotation> annotationType) {
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> getAnnotationAttributes() {
+        return null;
+    }
+
+    @Override
+    public Object getAnnotationAttribute(String key) {
+        return null;
     }
 }

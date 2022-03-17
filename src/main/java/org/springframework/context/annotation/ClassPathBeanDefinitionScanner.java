@@ -1,10 +1,10 @@
 package org.springframework.context.annotation;
 
 import cn.hutool.core.util.StrUtil;
-import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
+import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.stereotype.Component;
+import org.springframework.core.type.AnnotationMetadata;
 
 import java.util.Set;
 
@@ -29,6 +29,7 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
                 if (StrUtil.isNotEmpty(beanScope)) {
                     candidate.setScope(beanScope);
                 }
+
                 // 生成bean名称
                 String beanName = determineBeanName(candidate);
                 //注册BeanDefinition
@@ -45,9 +46,16 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
      * @return
      */
     private String determineBeanName(BeanDefinition beanDefinition) {
-        Class<?> beanClass = beanDefinition.getBeanClass();
-        Component component = beanClass.getAnnotation(Component.class);
-        String value = component.value();
+        AnnotatedBeanDefinition abd = (AnnotatedBeanDefinition) beanDefinition;
+        Class beanClass = abd.getBeanClass();
+        AnnotationMetadata metadata = abd.getMetadata();
+        // System.out.println(metadata.getAnnotationAttributes());
+        // String value = (String) metadata.getAnnotationAttribute("value");
+        // Component component = beanClass.getAnnotation(Component.class);
+        // String value = component.value();
+        // AnnotationUtil.getAnnotationValue(beanClass,)
+        // TODO
+        String value = null;
         if (StrUtil.isEmpty(value)) {
             value = StrUtil.lowerFirst(beanClass.getSimpleName());
         }

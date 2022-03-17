@@ -1,6 +1,7 @@
 package org.springframework.core.type;
 
 import java.lang.annotation.Annotation;
+import java.util.Map;
 
 /**
  * Defines access to the annotations of a specific type ({@link AnnotationMetadata class}
@@ -23,11 +24,11 @@ public interface AnnotatedTypeMetadata {
 
     <A extends Annotation> A getAnnotation(Class<A> annotationType);
 
+    Map<String, Object> getAnnotationAttributes(Class<? extends Annotation> annotationType);
 
+    Map<String, Object> getAnnotationAttributes();
 
-
-
-
+    Object getAnnotationAttribute(String key);
 
 
 }
