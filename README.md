@@ -8,6 +8,7 @@
 - 实现包扫描@ComponentScan注解
 - 解析方法上上@Bean注解
 - 解析配置文件@PropertySource注册
+- 解析@Component注解
 
 ```java
 @Configuration
