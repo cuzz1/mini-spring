@@ -46,6 +46,24 @@ public class Person {
 
 
 ```java
+/**
+ * @author cuzz
+ * @date 2022/3/16 22:20
+ */
+@Service
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private Person person;
+
+    @Override
+    public String getUseName() {
+        return person.getName();
+    }
+}
+```
+
+```java
 
 public class ConfigurationTest {
 
@@ -56,9 +74,10 @@ public class ConfigurationTest {
         for (Map.Entry<String, Car> stringCarEntry : beansMap.entrySet()) {
             System.out.println("beanName: " + stringCarEntry.getKey() + " bean: " + stringCarEntry.getValue());
         }
+        UserService bean = applicationContext.getBean(UserService.class);
+        System.out.println(bean);
+
         applicationContext.close();
-
-
     }
 }
 
@@ -69,6 +88,7 @@ public class ConfigurationTest {
 ```
 Car customInitMethod...
 beanName: myCar bean: Car{name='BMW', color='red'}
+org.springframework.test.configuration.UserServiceImpl@3439f68d
 Car customDestroyMethod...
 ```
 

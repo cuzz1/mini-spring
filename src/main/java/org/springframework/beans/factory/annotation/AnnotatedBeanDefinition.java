@@ -17,6 +17,10 @@ public class AnnotatedBeanDefinition extends BeanDefinition {
         super(beanClass);
         this.metadata = AnnotationMetadata.introspect(beanClass);
     }
+    public AnnotatedBeanDefinition(Class beanClass, AnnotationMetadata metadata) {
+        super(beanClass);
+        this.metadata = metadata;
+    }
 
     public AnnotatedBeanDefinition(Class beanClass, AnnotationMetadata metadata, MethodMetadata factoryMethodMetadata) {
         super(beanClass);

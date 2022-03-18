@@ -7,7 +7,9 @@ import org.springframework.core.type.StandardMethodMetadata;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -20,7 +22,7 @@ public class StandardAnnotationMetadata extends StandardClassMetadata implements
 
     public StandardAnnotationMetadata(Class<?> introspectedClass) {
         super(introspectedClass);
-        annotations = introspectedClass.getAnnotations();
+        annotations = AnnotationUtil.getAnnotations(introspectedClass, true);
     }
 
     public static AnnotationMetadata from(Class<?> type) {
@@ -30,16 +32,56 @@ public class StandardAnnotationMetadata extends StandardClassMetadata implements
 
     @Override
     public boolean hasMetaAnnotation(Class<? extends Annotation> annotationType) {
-        return AnnotationUtil.hasAnnotation(getIntrospectedClass(), annotationType);
+        for (Annotation annotation : annotations) {
+            if (annotation.annotationType() == annotationType) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
-        return getIntrospectedClass().getAnnotation(annotationType);
+        for (Annotation annotation : annotations) {
+            if (annotation.annotationType() == annotationType) {
+                return (A) annotation;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> getAnnotationAttributes(Class<? extends Annotation> annotationType) {
+        return AnnotationUtil.getAnnotationValueMap(getIntrospectedClass(),annotationType);
+
+
+
+    }
+
+    public Map<String, Object> getAnnotationAttributes() {
+        Map<String, Object> attributes = new HashMap<>();
+        for (Annotation annotation : annotations) {
+            Map<String, Object> annotationValueMap = AnnotationUtil.getAnnotationValueMap(getIntrospectedClass(), annotation.annotationType());
+            for (Map.Entry<String, Object> entry : annotationValueMap.entrySet()) {
+                // 如果包含这个key，判断一下是否为空
+                if (attributes.containsKey(entry.getKey())) {
+                    // TODO 这里需要处理一下防止覆盖
+                    attributes.put(entry.getKey(), entry.getValue());
+                } else {
+                    attributes.put(entry.getKey(), entry.getValue());
+                }
+            }
+        }
+        return attributes;
+    }
+
+    public Object getAnnotationAttribute(String key) {
+        Map<String, Object> annotationAttributes = getAnnotationAttributes();
+        return annotationAttributes.get(key);
     }
 
 
-    @Override
+        @Override
     public Set<MethodMetadata> getAnnotatedMethods(Class<? extends Annotation> annotationType) {
 
         Set<MethodMetadata> methodMetadataSet = new LinkedHashSet<>();

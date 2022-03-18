@@ -3,9 +3,8 @@ package org.springframework.test.configuration;
 import cn.hutool.core.annotation.AnnotationUtil;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
 
-import java.lang.reflect.Method;
+import java.lang.annotation.Annotation;
 import java.util.Map;
 
 /**
@@ -16,10 +15,14 @@ public class ConfigurationTest {
 
     @Test
     public void test() throws Exception {
-        Method method = AppConfig.class.getMethod("car");
 
-        Map<String, Object> annotationValueMap = AnnotationUtil.getAnnotationValueMap(method, Bean.class);
-        System.out.println(annotationValueMap);
+
+        // Map<String, Object> annotationValueMap = AnnotationUtil.getAnnotationValueMap(UserServiceImpl.class, Service.class);
+
+        // System.out.println(annotationValueMap);
+
+        Annotation[] annotations = AnnotationUtil.getAnnotations(UserServiceImpl.class, true);
+        System.out.println(annotations);
 
     }
 
@@ -31,6 +34,9 @@ public class ConfigurationTest {
         for (Map.Entry<String, Car> stringCarEntry : beansMap.entrySet()) {
             System.out.println("beanName: " + stringCarEntry.getKey() + " bean: " + stringCarEntry.getValue());
         }
+        UserService bean = applicationContext.getBean(UserService.class);
+        System.out.println(bean);
+
         applicationContext.close();
     }
 
