@@ -16,14 +16,6 @@ public class ConfigurationTest {
     @Test
     public void test() throws Exception {
 
-
-        // Map<String, Object> annotationValueMap = AnnotationUtil.getAnnotationValueMap(UserServiceImpl.class, Service.class);
-
-        // System.out.println(annotationValueMap);
-
-        Annotation[] annotations = AnnotationUtil.getAnnotations(UserServiceImpl.class, true);
-        System.out.println(annotations);
-
     }
 
 
