@@ -1,11 +1,14 @@
 package org.springframework.context.annotation;
 
+import cn.hutool.core.annotation.AnnotationUtil;
 import cn.hutool.core.util.StrUtil;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.core.type.AnnotationMetadata;
+import org.springframework.stereotype.Component;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -49,13 +52,13 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
         AnnotatedBeanDefinition abd = (AnnotatedBeanDefinition) beanDefinition;
         Class beanClass = abd.getBeanClass();
         AnnotationMetadata metadata = abd.getMetadata();
-        // System.out.println(metadata.getAnnotationAttributes());
-        // String value = (String) metadata.getAnnotationAttribute("value");
-        // Component component = beanClass.getAnnotation(Component.class);
-        // String value = component.value();
-        // AnnotationUtil.getAnnotationValue(beanClass,)
-        // TODO
-        String value = null;
+
+        Map<String, Object> annotationAttributes = metadata.getAnnotationAttributes(Component.class);
+        String value = "";
+        if (annotationAttributes.containsKey("value")) {
+            value = (String) annotationAttributes.get("value");
+        }
+
         if (StrUtil.isEmpty(value)) {
             value = StrUtil.lowerFirst(beanClass.getSimpleName());
         }

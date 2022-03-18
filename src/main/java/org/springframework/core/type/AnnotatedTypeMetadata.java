@@ -26,9 +26,4 @@ public interface AnnotatedTypeMetadata {
 
     Map<String, Object> getAnnotationAttributes(Class<? extends Annotation> annotationType);
 
-    Map<String, Object> getAnnotationAttributes();
-
-    Object getAnnotationAttribute(String key);
-
-
 }

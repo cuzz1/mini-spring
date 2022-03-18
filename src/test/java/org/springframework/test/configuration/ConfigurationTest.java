@@ -26,8 +26,13 @@ public class ConfigurationTest {
         for (Map.Entry<String, Car> stringCarEntry : beansMap.entrySet()) {
             System.out.println("beanName: " + stringCarEntry.getKey() + " bean: " + stringCarEntry.getValue());
         }
-        UserService bean = applicationContext.getBean(UserService.class);
-        System.out.println(bean);
+
+        System.out.println("-------------------");
+
+        String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
+        for (String beanName : beanDefinitionNames) {
+            System.out.println("beanName: " + beanName + " bean: " + applicationContext.getBean(beanName));
+        }
 
         applicationContext.close();
     }

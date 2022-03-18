@@ -47,13 +47,4 @@ public class StandardMethodMetadata implements MethodMetadata {
         return null;
     }
 
-    @Override
-    public Map<String, Object> getAnnotationAttributes() {
-        return null;
-    }
-
-    @Override
-    public Object getAnnotationAttribute(String key) {
-        return null;
-    }
 }

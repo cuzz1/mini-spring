@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  * @author cuzz
  * @date 2022/3/4 21:04
  */
-@Component
+@Component("myPerson")
 public class Person {
 
     @Value("${name}")
