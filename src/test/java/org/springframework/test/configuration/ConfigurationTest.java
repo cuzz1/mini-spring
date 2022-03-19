@@ -26,15 +26,16 @@ public class ConfigurationTest {
         for (Map.Entry<String, Car> stringCarEntry : beansMap.entrySet()) {
             System.out.println("beanName: " + stringCarEntry.getKey() + " bean: " + stringCarEntry.getValue());
         }
-
-        System.out.println("-------------------");
-
-        String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
-        for (String beanName : beanDefinitionNames) {
-            System.out.println("beanName: " + beanName + " bean: " + applicationContext.getBean(beanName));
-        }
-
         applicationContext.close();
+    }
+
+    @Test
+    public void testServiceAnnotation() throws Exception {
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        Map<String, UserService> beansMap = applicationContext.getBeansOfType(UserService.class);
+        for (Map.Entry<String, UserService> stringUserServiceEntry : beansMap.entrySet()) {
+            System.out.println("beanName: " + stringUserServiceEntry.getKey() + " bean: " + stringUserServiceEntry.getValue());
+        }
     }
 
 }

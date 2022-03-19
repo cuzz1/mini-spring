@@ -10,6 +10,7 @@
 - 解析配置文件@PropertySource注册
 - 解析@Component注解，解析@Service
 
+
 ```java
 @Configuration
 @PropertySource("classpath:person.properties")
@@ -91,6 +92,29 @@ beanName: myCar bean: Car{name='BMW', color='red'}
 org.springframework.test.configuration.UserServiceImpl@3439f68d
 Car customDestroyMethod...
 ```
+
+```java
+
+public class ConfigurationTest {
+
+    @Test
+    public void testServiceAnnotation() throws Exception {
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        Map<String, UserService> beansMap = applicationContext.getBeansOfType(UserService.class);
+        for (Map.Entry<String, UserService> stringUserServiceEntry : beansMap.entrySet()) {
+            System.out.println("beanName: " + stringUserServiceEntry.getKey() + " bean: " + stringUserServiceEntry.getValue());
+        }
+    }
+}
+
+```
+
+打印结果：
+
+```
+beanName: myUserService bean: org.springframework.test.configuration.UserServiceImpl@dbd940d
+```
+
 
 ## 参考
 
