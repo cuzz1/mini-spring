@@ -31,8 +31,7 @@ public class AppConfig {
 
 
 ```java
-
-@Component
+@Component("myPerson")
 public class Person {
 
     @Value("${name}")
@@ -51,7 +50,7 @@ public class Person {
  * @author cuzz
  * @date 2022/3/16 22:20
  */
-@Service
+@Service("myUserService")
 public class UserServiceImpl implements UserService {
 
     @Autowired
