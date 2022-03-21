@@ -81,6 +81,12 @@ public class ConfigurationClassBeanDefinitionReader {
             beanDefToRegister.setDestroyMethodName(destroyMethod);
         }
 
+
+        Scope scopeAnnotation = methodMetadata.getAnnotation(Scope.class);
+        if (scopeAnnotation != null && StrUtil.isNotBlank(scopeAnnotation.value())) {
+            beanDefToRegister.setScope(scopeAnnotation.value());
+        }
+
         this.registry.registerBeanDefinition(beanName, beanDefToRegister);
     }
 

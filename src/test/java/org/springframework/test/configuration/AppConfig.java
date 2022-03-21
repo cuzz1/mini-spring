@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.ComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
 
 /**
  * @author cuzz
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.PropertySource;
 public class AppConfig {
 
     @Bean(name = "aa")
+    @Scope("prototype")
     public A a() {
         return new A();
     }

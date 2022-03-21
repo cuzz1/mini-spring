@@ -1,6 +1,7 @@
 package org.springframework.test.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
  * @date 2022/3/4 21:04
  */
 @Component("myPerson")
+@Scope("prototype")
 public class Person {
 
     @Value("${name}")

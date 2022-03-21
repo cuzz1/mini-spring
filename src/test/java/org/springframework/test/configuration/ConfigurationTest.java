@@ -1,10 +1,8 @@
 package org.springframework.test.configuration;
 
-import cn.hutool.core.annotation.AnnotationUtil;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.lang.annotation.Annotation;
 import java.util.Map;
 
 /**
@@ -38,4 +36,12 @@ public class ConfigurationTest {
         }
     }
 
+
+    @Test
+    public void testScopeAnnotation() throws Exception {
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        A a1 = applicationContext.getBean(A.class);
+        A a2 = applicationContext.getBean(A.class);
+        System.out.println(a1 == a2);
+    }
 }
